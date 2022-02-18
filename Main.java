@@ -3,6 +3,7 @@
 // Sudoku Solver.
 // This Code was implemented and run on replit.com online IDE,
 // Used OpenJDK to run the code.
+
 import java.util.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,39 +45,40 @@ public class Main {
     }
     scan.close();
     } catch (Exception e){
-      e.printStackTrace();
-      System.out.println("ERROR WHILE READING FROM FILE");
+      // e.printStackTrace();
+      System.out.println("\nERROR WHILE READING FROM FILE");
     }
   }
 
 // Function to write the solution the solution onto a file
   private static void writeToFile(String filename){
+    // solution file name
     String solutionFile = filename + "Solution.txt";
     try {
       // create file object
-      File newFile = new File(solutionFile);
-      // if (newFile.createNewFile()){
-        // create a new file that the solution would be written to
-        newFile.createNewFile();
+    File newFile = new File(solutionFile);
 
-        FileWriter writer = new FileWriter(solutionFile);
-        for(int i = 0; i < 9; i++){
-          String line = "|";
-          for (int j = 0; j < 9; j++){
-            line = line + puzzel[i][j] + "|";
-          }
-          // Only add a new line if it is not the last row of the solved puzzel.
-          if(i != 8){
-            line = line + "\n";
-          }
-          System.out.print(line);
-          writer.write(line);
+      // create a new file that the solution would be written to
+      newFile.createNewFile();
+
+      FileWriter writer = new FileWriter(solutionFile);
+      for(int i = 0; i < 9; i++){
+        String line = "|";
+        for (int j = 0; j < 9; j++){
+          line = line + puzzel[i][j] + "|";
         }
-        writer.close();
-        System.out.println("\n\nThe Solution is available in the File: " + solutionFile);
-      // } else {
-      //   System.out.println("A Solution file already exists");
-      // }
+
+        // Only add a new line if it is not the last row of the solved puzzel.
+        if(i != 8){
+          line = line + "\n";
+        }
+
+        System.out.print(line);
+
+        writer.write(line);
+      }
+      writer.close();
+      System.out.println("\n\nThe Solution is available in the File: " + solutionFile);
     } catch (Exception e){
       System.out.println("ERROR WHILE WRITING TO FILE");
       // e.printStackTrace();
@@ -205,6 +207,8 @@ public class Main {
       }
       System.out.println();
     }
+
+    // call function for backtrack search and if it returns true, write solution to file.
     if (recursionSolve()){
       System.out.println("\nPRINTING SOLVED TABLE\n");
       writeToFile(filename.substring(0,filename.indexOf(".")));
@@ -217,5 +221,4 @@ public class Main {
     input.close();
     // scan.close();
 	}
-
 }
